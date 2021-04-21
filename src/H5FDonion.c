@@ -1856,15 +1856,14 @@ H5FD__onion_injest_revision_record(struct H5FD__onion_revision_record *r_out,
                 "at least one record extends beyond EOF");
     }
 
-#if 0 /* TODO: recovery-open */
-/* recovery-open may have EOA below revision record */
+	/* TODO: recovery-open */
+	/* recovery-open may have EOA below revision record */
     if ((H5FD_get_eoa(raw_file, H5FD_MEM_DRAW) < (addr + size))
     &&  (H5FD_set_eoa(raw_file, H5FD_MEM_DRAW, (addr + size)) < 0))
     {
         HGOTO_ERROR(H5E_VFL, H5E_CANTSET, FAIL,
                 "can't modify EOA");
     }
-#endif
 
     /* Perform binary search on records to find target revision by ID.
      * As IDs are added sequentially, they are "guaranteed" to be sorted.
